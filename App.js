@@ -1,24 +1,37 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Header from './src/components/Header';
+import PeopleScreen from './src/screens/PeopleScreen';
+import { StackNavigator } from 'react-navigation';
+import PeopleDetailScreen from './src/screens/PeopleDetailScreen';
+import { capitalize } from './common';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Header title="Barra"></Header>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+export default StackNavigator(
+  {
+    'Main': {
+      screen: PeopleScreen
+    },
+    'PeopleDetail': {
+      screen: PeopleDetailScreen,
+      navigationOptions: ( { navigation } ) => {
+        const { first, last } = navigation.state.params.people.name;
+        return ({
+          title: `${capitalize(first)} ${capitalize(last)} `
+        });
+      }
+    }
   },
-});
+  {
+    navigationOptions: {
+      title: 'Pessoas!',
+      headerTintColor: 'white',
+      headerStyle: {
+        backgroundColor: '#6ca2f7',
+        borderBottomWidth: 1,
+        borderBottomColor: '#c5c5c5'
+      },
+      headerTitleStyle: {
+        color: 'white',
+        alignSelf: 'center',
+        fontSize: 30
+      }
+    }
+  }
+);
