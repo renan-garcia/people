@@ -17,7 +17,7 @@ export default class PeopleScreen extends React.Component {
   componentDidMount(){
     this.setState({ loading: true })
     axios
-    .get('https://randomusera.me/api?nat=br&results=100')
+    .get('https://randomuser.me/api?nat=br&results=100')
     .then(response => {
       const { results } = response.data;
       this.setState({peoples: results, loading: false});
